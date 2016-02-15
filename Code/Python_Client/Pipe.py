@@ -21,7 +21,7 @@ class Pipe():
     def communication(self):
         recvnum = {"login":2,"register":4}
         first = self.pipercv()
-        loggedindetails=""
+        loggedindetails=first
         for i in range(0,recvnum[str(first)]):
             loggedindetails=loggedindetails+'#'+self.pipercv()
         return loggedindetails
