@@ -67,7 +67,7 @@ MAX_SOURCE_MSG_SIZE = 128
 END_LINE = "\r\n"                                         # End of line
 SERVER_ABORT = "Aborting the server..."
 SERVER_ADDRESS = "127.0.0.1"
-SERVER_PORT = 8083
+SERVER_PORT = 8089
 #endregion
 
 #region  -----  SessionWithClient C L A S S  -----
@@ -119,12 +119,11 @@ class NetWorkClient:
             return
         self.sym_key = self.security.key_exchange_client(self.sock)
         print self.sym_key
-        data = self.recv()
-        print data
         pipe=Pipe()
         loggedindetails=pipe.communication()
         print loggedindetails
         self.send(loggedindetails)
+        pipe.pipesend(self.recv())
 
 
 

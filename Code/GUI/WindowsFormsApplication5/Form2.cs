@@ -62,13 +62,8 @@ namespace WindowsFormsApplication5
                 
                 try
                 {
-                    var len = (int)br.ReadUInt32();            // Read string length
-                    var str = new string(br.ReadChars(len));    // Read string
-
-                    Console.WriteLine("Read: \"{0}\"", str);
                     
-                    
-                    str = new string(send[i].ToArray());  // Just for fun
+                     var str = new string(send[i].ToArray());  // Just for fun
 
                     var buf = Encoding.ASCII.GetBytes(str);     // Get ASCII byte array     
                     bw.Write((uint)buf.Length);                // Write string length
@@ -81,7 +76,10 @@ namespace WindowsFormsApplication5
                     server.Close();
                     server.Dispose();   // When client disconnects
                 }
-            
+           
+                     var len2 = (int)br.ReadUInt32();            // Read string length
+                     var str2 = new string(br.ReadChars(len2));    // Read string
+                     MessageBox.Show(str2);  
 
             
             

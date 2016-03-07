@@ -39,18 +39,16 @@ namespace WindowsFormsApplication5
            send[0] = "login"; 
            send[1]=UN;
            send[2]=PW;
-           for(int i=0; i<send.Length;i++)
-                
-                
+           for(int i=0; i<send.Length;i++)               
                 try
                 {
-                    var len = (int)br.ReadUInt32();            // Read string length
-                    var str = new string(br.ReadChars(len));    // Read string
-
-                    Console.WriteLine("Read: \"{0}\"", str);
+                   // var len = (int)br.ReadUInt32();            // Read string length
+                   // var str = new string(br.ReadChars(len));    // Read string
+                   // if (str=="Message[0]")
+                     //   MessageBox.Show(str);
                     
                     
-                    str = new string(send[i].ToArray());  // Just for fun
+                   var  str = new string(send[i].ToArray());  // Just for fun
 
                     var buf = Encoding.ASCII.GetBytes(str);     // Get ASCII byte array     
                     bw.Write((uint)buf.Length);                // Write string length
@@ -59,11 +57,14 @@ namespace WindowsFormsApplication5
                 }
                 catch (EndOfStreamException)
                 {
-                    Console.WriteLine("Client disconnected."); 
+                    MessageBox.Show("Client disconnected."); 
                     server.Close();
                     server.Dispose();   // When client disconnects
                 }
-            
+
+             var len = (int)br.ReadUInt32();            // Read string length
+             var str1 = new string(br.ReadChars(len));    // Read string
+             MessageBox.Show(str1);
 
             
             

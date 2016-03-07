@@ -19,6 +19,9 @@ import os
 import socket
 import time
 from Security import *
+from DBManager import *
+
+
 #endregion
 
 #region ----------   C O N S T A N T S  ------------------------------------------------------
@@ -53,6 +56,7 @@ class  SessionWithClient(threading.Thread):
         # Dictionary of ptotocols functions : Key - level  Value - referance to function
  #       self.operFnPtrDict = { 1 : self.oper1Fun, 2 : self.oper1Fun }
         self.AES=AESCrypt()
+        self.DBManager = DBManager()
 
     #-----------------------------------------------------------------------------------------------
     # Receive data from input stream from server socket by loop
@@ -122,9 +126,9 @@ class  SessionWithClient(threading.Thread):
             print type(self.sym_key)
             #self.sym_key=int(self.sym_key)
             print type(self.sym_key)
-            self.send("it is gil")
-            login = self.rec()
-            print login
+            data2 = self.rec()
+            message=self.DBManager.run(data2)
+            self.send(message)
 
 
 

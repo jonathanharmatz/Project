@@ -23,3 +23,11 @@ D:\JH\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplic
 D:\JH\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.Form2.resources
 D:\JH\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.Properties.Resources.resources
 D:\JH\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.csproj.GenerateResource.Cache
+D:\JH\Project-master\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.exe
+D:\JH\Project-master\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.pdb
+D:\JH\Project-master\Project\Code\GUI\WindowsFormsApplication5\bin\Debug\WindowsFormsApplication5.exe
+D:\JH\Project-master\Project\Code\GUI\WindowsFormsApplication5\bin\Debug\WindowsFormsApplication5.pdb
+D:\JH\Project-master\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.Form1.resources
+D:\JH\Project-master\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.Form2.resources
+D:\JH\Project-master\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.Properties.Resources.resources
+D:\JH\Project-master\Project\Code\GUI\WindowsFormsApplication5\obj\x86\Debug\WindowsFormsApplication5.csproj.GenerateResource.Cache
