@@ -33,6 +33,9 @@ namespace WindowsFormsApplication5
            Console.WriteLine("Connected.");
            var br = new BinaryReader(server);
            var bw = new BinaryWriter(server);
+           var str1 = "";
+           while (str1 != "You failed to login 3 times. Access to folder denied." || str1 != "login successful")
+           {
            string UN = username.Text;
            string PW = password.Text;
            string[] send = new string[3];
@@ -42,13 +45,9 @@ namespace WindowsFormsApplication5
            for(int i=0; i<send.Length;i++)               
                 try
                 {
-                   // var len = (int)br.ReadUInt32();            // Read string length
-                   // var str = new string(br.ReadChars(len));    // Read string
-                   // if (str=="Message[0]")
-                     //   MessageBox.Show(str);
                     
                     
-                   var  str = new string(send[i].ToArray());  // Just for fun
+                   var  str = new string(send[i].ToArray());  
 
                     var buf = Encoding.ASCII.GetBytes(str);     // Get ASCII byte array     
                     bw.Write((uint)buf.Length);                // Write string length
@@ -63,10 +62,10 @@ namespace WindowsFormsApplication5
                 }
 
              var len = (int)br.ReadUInt32();            // Read string length
-             var str1 = new string(br.ReadChars(len));    // Read string
+              str1 = new string(br.ReadChars(len));    // Read string
              MessageBox.Show(str1);
 
-            
+           }
             
         }
 

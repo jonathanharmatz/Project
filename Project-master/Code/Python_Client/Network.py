@@ -56,6 +56,8 @@ import time
 from Security import *
 from Pipe import *
 from ExplorerManager import *
+from permmisions import *
+from Folder_Encrypt import *
 #endregion
 
 #region ----------   C O N S T A N T S  ------------------------------------------------------
@@ -79,6 +81,8 @@ class NetWorkClient:
         self.sock = socket.socket()
         self.AES= AESCrypt()
         self.ExplorerManager = ExplorerManager()
+        self.permmisions =  permmisions()
+        self.Folder_Encrypt = Folder_Encrypt()
 
 
     def start(self):
@@ -121,14 +125,25 @@ class NetWorkClient:
         if not self.verify_hello(data):
             return
         self.sym_key = self.security.key_exchange_client(self.sock)
-        print self.sym_key
         file_name =  self.recv()
-        print self.ExplorerManager.begin(file_name)
+        self.permmisions.Access_Denied(file_name)
+        self.ExplorerManager.begin(file_name)
         pipe=Pipe()
-        loggedindetails=pipe.communication()
-        print loggedindetails
-        self.send(loggedindetails)
-        pipe.pipesend(self.recv())
+        message=""
+        while message!="You failed to login 3 times. Access to folder denied." or message != "login successful":
+            loggedindetails=pipe.communication()
+            print message
+            self.send(loggedindetails)
+            message = self.recv()
+            pipe.pipesend(message)
+        if "login failed" in message:
+            self.Folder_Encrypt.encrypt_file(os.urandom(32), file_name)
+
+
+
+        print
+        raw_input()
+        self.permmisions.remove_ace(file_name)
 
 
 

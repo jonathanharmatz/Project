@@ -16,7 +16,7 @@ KEY_LENGTH = 1024
 
 # endregion
 
-class Crypto:
+class KeyGenerator:
     private_key = None
 
     # ----------------------------------------------------------

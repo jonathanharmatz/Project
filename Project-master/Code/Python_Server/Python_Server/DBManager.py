@@ -20,6 +20,7 @@ class DBManager:
         self.conn = None
         self.cur = None
         self.method = None
+        self.count = 3
         return
 
     def connect(self):
@@ -108,10 +109,13 @@ class DBManager:
             return "fail to register"
 
     def Login(self, data,ip):
-        if self.If_Client_Already_Exists(data,ip)==True:
-            return "client exists"
-        else:
-            return "client does not exist"
+        while self.count!=0:
+            if self.If_Client_Already_Exists(data,ip)==True:
+                return "login successful"
+            else:
+                self.count-=1
+                return "wrong username or password, you got %s tries left" %(self.count)
+        return "You failed to login 3 times. Access to folder denied."
         """self.conn = sqlite3.connect('DataBase.db')
         self.cur = self.conn.cursor()
         self.connect()
@@ -143,11 +147,32 @@ class DBManager:
     def folder_by_ip(self,ip):
         self.conn = sqlite3.connect('DataBase.db')
         self.cur = self.conn.cursor()
+        self.connect()
+        self.conn = sqlite3.connect('DataBase.db')
+        self.cur = self.conn.cursor()
         self.cur.execute('''SELECT FolderUrl FROM DataBase WHERE Ip = "%s" ''' % (str(ip)))
-        if self.cur.fetchone() is not None:
-            x = str(self.cur.fetchone())
-            x = x.split("'")[1]
-            return x
+        print ip
+        x = self.cur.fetchone()
+        if x is not None:
+            self.conn.commit()
+            folder = str(x).split("'")[1]
+            print folder
+            return folder
+        else:
+            return "ip does not exist"
+
+    def email_by_ip(self,ip):
+        elf.conn = sqlite3.connect('DataBase.db')
+        self.cur = self.conn.cursor()
+        self.connect()
+        self.conn = sqlite3.connect('DataBase.db')
+        self.cur = self.conn.cursor()
+        self.cur.execute('''SELECT Email FROM DataBase WHERE Ip = "%s" ''' % (str(ip)))
+        print ip
+        x = self.cur.fetchone()
+        if x is not None:
+            print str(x)
+            return str(x)
         else:
             return "ip does not exist"
 

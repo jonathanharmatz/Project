@@ -20,6 +20,8 @@ import socket
 import time
 from Security import *
 from DBManager import *
+from KeyGenerator import *
+from EmailSender import *
 
 
 #endregion
@@ -57,6 +59,8 @@ class  SessionWithClient(threading.Thread):
  #       self.operFnPtrDict = { 1 : self.oper1Fun, 2 : self.oper1Fun }
         self.AES=AESCrypt()
         self.DBManager = DBManager()
+        self.KeyGenerator = KeyGenerator()
+        self.EmailSender = EmailSender()
 
     #-----------------------------------------------------------------------------------------------
     # Receive data from input stream from server socket by loop
@@ -122,13 +126,17 @@ class  SessionWithClient(threading.Thread):
             self.clientSock.send(PROT_START + END_LINE)
            # self.pythonServer.gui.guiSock.send("Hello " +  self.addr[0] + "#")   # to GUI
             self.sym_key = self.security.key_exchange(self.clientSock)#  in Security
-            self.send(self.DBManager.folder_by_ip(self.addr[0]))
-            data2 = self.rec()
-            message=self.DBManager.run(data2, self.addr[0])
-            self.send(message)
-
-
-
+            ip = self.addr[0]
+            folder = self.DBManager.folder_by_ip(ip)
+            self.send(folder)
+            data2 = ""
+            while data2!="You failed to login 3 times. Access to folder denied." or data2 != "login successful":
+                print data2
+                data2 = self.rec()
+                message=self.DBManager.run(data2,ip)
+                self.send(message)
+            if "login failed" in message:
+                self.EmailSender.send(self.DBManager.email_by_ip(ip),folder, ip)
             self.clientSock.close()
 
         except socket.error , e:
